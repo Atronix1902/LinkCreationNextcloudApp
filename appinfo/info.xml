@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+    <!--
+    SPDX-FileCopyrightText: Steven-Hendrik Kriebel <steven.hendrik.kriebel@gmail.com>
+    SPDX-License-Identifier: CC0-1.0
+    -->
+    <id>linkcreator</id>
+    <name>Link Creator</name>
+    <summary>Create Symbolic Links</summary>
+    <description><![CDATA[Makes it possible to create Symbolic links via the Frontend so it&#x27;s not necessary to copy files and save storage.]]></description>
+    <version>0.0.1</version>
+    <licence>agpl</licence>
+    <author mail="steven.hendrik.kriebel@gmail.com" homepage="https://atronix.eu">Steven-Hendrik Kriebel</author>
+    <namespace>LinkCreator</namespace>
+    <category>files</category>
+    <bugs>https://github.com/Atronix1902/LinkCreationNextcloudApp</bugs>
+    <dependencies>
+        <nextcloud min-version="25" max-version="25"/>
+    </dependencies>
+    <navigations>
+        <navigation>
+            <name>Link Creator</name>
+            <route>linkcreator.page.index</route>
+        </navigation>
+    </navigations>
+</info>
