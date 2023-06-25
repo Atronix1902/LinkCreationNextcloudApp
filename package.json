@@ -22,8 +22,11 @@
   "dependencies": {
     "@nextcloud/axios": "^1.10.0",
     "@nextcloud/dialogs": "^3.1.4",
+    "@nextcloud/paths": "^2.1.0",
     "@nextcloud/router": "^2.0.0",
     "@nextcloud/vue": "^5.4.0",
+    "axios": "^1.4.0",
+    "base-64": "^1.0.0",
     "vue": "^2.7.0"
   },
   "browserslist": [
