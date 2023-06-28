@@ -25,7 +25,6 @@ function escapeRegExp(string) {
 }
 
 export class WebDavFetchClient {
-
     constructor(options) {
         this.xmlParser = new DOMParser()
         this.ns = 'DAV:'

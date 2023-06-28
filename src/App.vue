@@ -35,8 +35,8 @@
 			</ul>
 		</AppNavigation>
 		<AppContent>
-      <div id="filepicker">
-        asdasdas
+      <div style="margin: 2em">
+        test
       </div>
 		</AppContent>
 	</div>

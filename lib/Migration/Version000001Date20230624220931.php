@@ -24,7 +24,6 @@ class Version000001Date20230624220931 extends SimpleMigrationStep {
 		/** @var ISchemaWrapper $schema */
 		$schema = $schemaClosure();
 
-        $schema->dropTable('linkcreator');
 		if (!$schema->hasTable('linkcreator')) {
 			$table = $schema->createTable('linkcreator');
 			$table->addColumn('id', 'integer', [
