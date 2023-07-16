@@ -1,3 +1,10 @@
+/**
+ * This file includes code derived from or inspired by the source file https://github.com/julien-nc/nextcloud-webdav-filepicker/blob/main/src/webdavFetchClient.js.
+ *
+ * https://github.com/julien-nc/nextcloud-webdav-filepicker/blob/main/src/webdavFetchClient.js is licensed under the GNU Affero General Public License (AGPL) v3.0.
+ * For more details, see the LICENSE file.
+ */
+
 import { basename } from '@nextcloud/paths';
 import { getCurrentUser, getRequestToken } from "@nextcloud/auth";
 
