@@ -86,30 +86,39 @@ export function colorLuminance(hexColor, lumModifier) {
 
 export function getElemTypeClass(elem) {
     if (elem.type === 'directory') {
-        return { 'icon-folder': true }
+        return 'folder.svg';
     } else {
-        const mime = elem.mime
+        const mime = elem.mime;
         if (mime.match(/^video\//)) {
-            return { 'icon-video': true }
-        } else if (mime === 'text/calendar') {
-            return { 'icon-calendar': true }
-        } else if (mime === 'text/csv' || mime.match(/^application\/.*opendocument\.spreadsheet$/) || mime.match(/^application\/.*office.*sheet$/)) {
-            return { 'icon-spreadsheet': true }
-        } else if (mime.match(/^text\//)) {
-            return { 'icon-text': true }
-        } else if (mime.match(/^application\/pdf$/)) {
-            return { 'icon-pdf': true }
-        } else if (mime.match(/^application\/gpx/)) {
-            return { 'icon-location': true }
-        } else if (mime.match(/^image\//)) {
-            return { 'icon-picture': true }
-        } else if (mime.match(/^audio\//)) {
-            return { 'icon-audio': true }
-        } else if (mime.match(/^application\/.*opendocument\.text$/) || mime.match(/^application\/.*word.*document$/)) {
-            return { 'icon-office-document': true }
-        } else if (mime.match(/^application\/.*opendocument\.presentation$/) || mime.match(/^application\/.*office.*presentation$/)) {
-            return { 'icon-office-presentation': true }
+            return 'video.svg';
         }
-        return { 'icon-file': true }
+		else if (mime === 'text/calendar') {
+            return 'text-calendar.svg';
+        }
+		else if (mime === 'text/csv' || mime.match(/^application\/.*opendocument\.spreadsheet$/) || mime.match(/^application\/.*office.*sheet$/)) {
+            return 'x-office-spreadsheet.svg';
+        }
+		else if (mime.match(/^text\//)) {
+            return 'text.svg';
+        }
+		else if (mime.match(/^application\/pdf$/)) {
+            return 'application-pdf.svg';
+        }
+		else if (mime.match(/^application\/gpx/)) {
+            return 'location.svg';
+        }
+		else if (mime.match(/^image\//)) {
+            return 'image.svg';
+        }
+		else if (mime.match(/^audio\//)) {
+            return 'audio.svg';
+        }
+		else if (mime.match(/^application\/.*opendocument\.text$/) || mime.match(/^application\/.*word.*document$/)) {
+            return 'x-office-document.svg';
+        }
+		else if (mime.match(/^application\/.*opendocument\.presentation$/) || mime.match(/^application\/.*office.*presentation$/)) {
+            return 'x-office-presentation.svg';
+        }
+        return 'file.svg';
     }
 }
