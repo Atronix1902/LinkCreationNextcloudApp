@@ -53,6 +53,14 @@ class Version000001Date20230624220931 extends SimpleMigrationStep {
             $table->addColumn('created_at', Types::DATETIME, [
                 'notnull' => true
             ]);
+			$table->addColumn('result_string', 'string', [
+				'notnull' => false,
+				'length' => 511
+			]);
+			$table->addColumn('result_code', 'integer', [
+				'notnull' => true,
+				'default' => 0
+			]);
 
 			$table->setPrimaryKey(['id']);
 			$table->addIndex(['user_id'], 'linkcreator_user_id_index');

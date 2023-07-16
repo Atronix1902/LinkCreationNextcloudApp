@@ -7,6 +7,7 @@ namespace OCA\LinkCreator\Controller;
 
 use Closure;
 
+use OCA\LinkCreator\Service\LinkNotCreatable;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
 
@@ -19,6 +20,21 @@ trait Errors {
 		} catch (LinkNotFound $e) {
 			$message = ['message' => $e->getMessage()];
 			return new DataResponse($message, Http::STATUS_NOT_FOUND);
+		}
+	}
+
+	protected function handleNotCreatable(Closure $callback): DataResponse
+	{
+		try {
+			return new DataResponse($callback());
+		} catch (LinkNotCreatable $e) {
+			$message = [
+				'message'	=> $e->getMessage(),
+				'code'		=> $e->getCode(),
+				'detail'	=> $e->getDetail(),
+				'results'	=> $e->getResults()
+			];
+			return new DataResponse($message, Http::STATUS_INTERNAL_SERVER_ERROR);
 		}
 	}
 }

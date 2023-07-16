@@ -1,3 +1,4 @@
+<!--suppress CssUnresolvedCustomProperty -->
 <template>
     <!--
     SPDX-FileCopyrightText: Steven-Hendrik Kriebel <steven.hendrik.kriebel@gmail.com>
@@ -52,10 +53,10 @@
 							<i v-if="this['file-exists-from'] === null" class="fa-regular fa-square h3" style="position: relative; top: 0.15em"></i>
 							<input type="text" id="from-input" @change="(event) => checkInputContent('from', event.target.value)" style="margin: -2.3em; padding-left: 2.3em">
 						</div>
-						<h1 v-if="!checkingInput" class="m-2" style="cursor: pointer;" v-tooltip="'Create Link'">
-							<i v-if="this['file-exists-from'] === true && this['file-exists-to'] === false" class="fa-solid fa-arrow-right-long align-top text-success"></i>
-							<i v-else-if="this['file-exists-from'] === false || this['file-exists-to'] === true" class="fa-solid fa-arrow-right-long align-top text-danger"></i>
-							<i v-else-if="this['file-exists-from'] === null || this['file-exists-to'] === null" class="fa-solid fa-arrow-right-long align-top"></i>
+						<h1 v-if="!checkingInput" class="m-2">
+							<i v-if="this['file-exists-from'] === true && this['file-exists-to'] === false" class="fa-solid fa-arrow-right-long align-top text-success" style="cursor: pointer;" v-tooltip="'Create Link'" @click="createLink()"></i>
+							<i v-else-if="this['file-exists-from'] === false || this['file-exists-to'] === true" class="fa-solid fa-arrow-right-long align-top text-danger" v-tooltip="'Cannot Create Link'"></i>
+							<i v-else-if="this['file-exists-from'] === null || this['file-exists-to'] === null" class="fa-solid fa-arrow-right-long align-top" v-tooltip="'Cannot Create Link'"></i>
 						</h1>
 						<LoadingIcon v-else class="m-0"></LoadingIcon>
 						<div class="flex-fill m-2" style="margin-right: -0.2em !important">
@@ -118,26 +119,6 @@ export default {
 			'file-exists-to':	null,
 			checkingInput:		false
 		}
-	},
-	computed: {
-		/**
-		 * Return the currently selected link object
-		 * @returns {Object|null}
-		 */
-		currentLink() {
-			if (this.currentLinkId === null) {
-				return null
-			}
-			return this.links.find((link) => link.id === this.currentLinkId)
-		},
-
-		/**
-		 * Returns true if a link is selected and its title is not empty
-		 * @returns {Boolean}
-		 */
-		savePossible() {
-			return this.currentLink && this.currentLink.from !== ''
-		},
 	},
 	/**
 	 * Fetch list of links when the component is loaded
@@ -208,19 +189,6 @@ export default {
 			}
 		},
 		/**
-		 * Create a new link and focus the link content field automatically
-		 * @param {Object} link Link object
-		 */
-		openLink(link) {
-			if (this.updating) {
-				return
-			}
-			this.currentLinkId = link.id
-			this.$nextTick(() => {
-				this.$refs.content.focus()
-			})
-		},
-		/**
 		 * Action tiggered when clicking the save button
 		 * create a new link or save
 		 */
@@ -258,32 +226,22 @@ export default {
 		},
 		/**
 		 * Create a new link by sending the information to the server
-		 * @param {Object} link Link object
 		 */
-		async createLink(link) {
-			this.updating = true
+		async createLink() {
+			const from	= document.querySelector('#from-input').value;
+			const to	= document.querySelector('#to-input').value;
 			try {
-				const response = await axios.post(generateUrl('/apps/linkcreator/links'), link)
+				const response = await axios.post(generateUrl('/apps/linkcreator/links'), {
+					from:	from,
+					to:		to
+				});
+				console.log('response', JSON.stringify(response));
 				const index = this.links.findIndex((match) => match.id === this.currentLinkId)
 				this.$set(this.links, index, response.data)
 				this.currentLinkId = response.data.id
 			} catch (e) {
 				console.error(e)
 				showError('Could not create the link')
-			}
-			this.updating = false
-		},
-		/**
-		 * Update an existing link on the server
-		 * @param {Object} link Link object
-		 */
-		async updateLink(link) {
-			this.updating = true
-			try {
-				await axios.put(generateUrl(`/apps/linkcreator/links/${link.id}`), link)
-			} catch (e) {
-				console.error(e)
-				showError('Could not update the link')
 			}
 			this.updating = false
 		},

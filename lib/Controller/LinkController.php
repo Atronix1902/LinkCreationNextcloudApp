@@ -48,8 +48,9 @@ class LinkController extends Controller {
      * @throws Exception
      */
 	public function create(string $from, string $to): DataResponse {
-		return new DataResponse($this->service->create($from, $to,
-			$this->userId));
+		return $this->handleNotCreatable(function() use($from, $to) {
+			return $this->service->create($from, $to, $this->userId);
+		});
 	}
 
 	/**

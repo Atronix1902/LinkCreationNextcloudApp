@@ -24,6 +24,10 @@ use OCP\AppFramework\Db\Entity;
  * @method setFromAbsolute(string $from): void
  * @method getToAbsolute(): string
  * @method setToAbsolute(string $to): void
+ * @method getResultString(): ?string
+ * @method setResultString(?string $result): void
+ * @method getResultCode(): int
+ * @method setResultCode(int $code): void
  */
 class Link extends Entity implements JsonSerializable {
 	protected string $title = '';
@@ -33,8 +37,11 @@ class Link extends Entity implements JsonSerializable {
     protected string $createdAt = '';
     protected string $fromAbsolute = '';
     protected string $toAbsolute = '';
+	protected ?string $resultString = null;
+	protected int $resultCode = 0;
 
-	#[ArrayShape(['id' => "int", 'from' => "string", 'to' => "string", 'createdAt' => "string", 'result' => 'string|null', 'fromAbsolute' => 'string', 'toAbsolute' => 'string'])]
+
+	#[ArrayShape(['id' => "int", 'from' => "string", 'to' => "string", 'createdAt' => "string", 'resultString' => 'string|null', 'resultCode' => 'int', 'fromAbsolute' => 'string', 'toAbsolute' => 'string'])]
     public function jsonSerialize(): array {
 		return [
 			'id' => $this->id,
@@ -43,7 +50,8 @@ class Link extends Entity implements JsonSerializable {
             'fromAbsolute' => $this->fromAbsolute,
             'toAbsolute' => $this->toAbsolute,
             'createdAt' => $this->createdAt,
-            'result' => $this->result ?? null
+            'resultString' => $this->resultString ?? null,
+			'resultCode' => $this->resultCode
 		];
 	}
 }
